@@ -1,0 +1,54 @@
+---
+- name: Setup system and pariscall.international-backend app
+  hosts: dev
+  become: yes
+
+  vars:
+    - homeDir: /home/cloud
+    - repo: https://github.com/ambanum/pariscall.international-backend.git
+    - appDir: pariscall.international-backend
+    - account: AmbaNum
+
+  roles:
+    - themis
+    - nginx
+    - node
+
+  tasks:
+    - name: Install forever
+      npm: name=forever global=yes production=yes
+
+    - name: Git Clone Repo
+      git:
+        repo: "{{repo}}"
+        dest: "{{homeDir}}/{{appDir}}"
+        force: yes
+      register: git_clone_app_finished
+
+    - name: Install NPM packages
+      npm:
+        path: "{{homeDir}}/{{appDir}}"
+        unsafe_perm: yes
+        production: yes
+      register: npm_finished
+      when: git_clone_app_finished.changed
+
+    - name: Add .env file
+      template:
+        src=.env
+        dest="{{homeDir}}/{{appDir}}/.env"
+
+    - name: Stop APP
+      command: forever stop "{{appDir}}"
+      ignore_errors: yes
+      when: npm_finished.changed
+      register: stop_app_finished
+
+    - name: Start APP
+      command:
+        cmd: forever start -a --uid "{{appDir}}" app/server.js
+        chdir: "{{homeDir}}/{{appDir}}"
+      environment:
+        NODE_ENV: production
+        PORT: 3030
+      when: stop_app_finished.changed
