@@ -1,0 +1,20 @@
+---
+- name: Install required packages
+  apt:
+    pkg: ['build-essential', 'git', 'libssl-dev']
+    update_cache: yes
+    state: latest
+
+- name: Git Clone source
+  git:
+    repo: "https://github.com/cossacklabs/themis.git"
+    dest: "{{homeDir}}/themis"
+    force: yes
+    accept_hostkey: yes
+  register: git_clone_themis_finished
+
+- name: Make install
+  make:
+    chdir: "{{homeDir}}/themis"
+    target: install
+  when: git_clone_themis_finished.changed
