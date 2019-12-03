@@ -13,3 +13,12 @@
     name: nodejs
     update_cache: yes
     state: latest
+
+- name: Update Npm to latest version
+  command: npm install -g npm
+
+- name: Install forever
+  npm:
+    name: forever
+    global: yes
+    production: yes
