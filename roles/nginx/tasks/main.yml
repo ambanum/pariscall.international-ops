@@ -1,14 +1,14 @@
 ---
 - name: Install package
   apt:
-    pkg: ['nginx']
+    name: nginx
     update_cache: yes
     state: latest
 
 - name: Setup nginx conf
   template:
-    src=nginx.conf.tpl
-    dest=/etc/nginx/nginx.conf
+    src: nginx.conf.tpl
+    dest: /etc/nginx/nginx.conf
   notify: restart nginx
 
 - name: Clean default conf from site-enabled
@@ -19,8 +19,8 @@
 
 - name: Add pariscall.international conf in site-available
   template:
-    src=pariscall.tpl
-    dest=/etc/nginx/sites-available/pariscall
+    src: pariscall.tpl
+    dest: /etc/nginx/sites-available/pariscall
   notify: restart nginx
 
 - name: Link pariscall.international conf from site-available to site-enabled
