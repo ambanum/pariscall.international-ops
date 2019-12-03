@@ -1,0 +1,7 @@
+---
+- name: Pariscall.international-backend app
+  hosts: all
+  become: yes
+
+  roles:
+    - pariscall.international-backend

@@ -1,0 +1,1 @@
+home_directory: "/home/{{ ansible_user }}"

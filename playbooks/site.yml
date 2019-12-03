@@ -1,0 +1,8 @@
+---
+- name: Setup Pariscall.international-backend infra and apps
+  hosts: all
+
+- import_playbook: infra.yml
+- import_playbook: pariscall.international-backend.yml
+
+

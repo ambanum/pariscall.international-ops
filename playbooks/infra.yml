@@ -1,0 +1,9 @@
+---
+- name: Setup pariscall.international infra
+  hosts: all
+  become: yes
+
+- import_playbook: infra/common.yml
+- import_playbook: infra/nginx.yml
+- import_playbook: infra/node.yml
+- import_playbook: infra/themis.yml

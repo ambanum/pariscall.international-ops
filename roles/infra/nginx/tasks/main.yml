@@ -17,13 +17,13 @@
     path: /etc/nginx/sites-enabled/default
   notify: restart nginx
 
-- name: Add pariscall.international conf in site-available
+- name: Add pariscall.international conf in sites-available
   template:
     src: pariscall.tpl
     dest: /etc/nginx/sites-available/pariscall
   notify: restart nginx
 
-- name: Link pariscall.international conf from site-available to site-enabled
+- name: Link pariscall.international conf from sites-available to sites-enabled
   file:
     src: /etc/nginx/sites-available/pariscall
     dest: /etc/nginx/sites-enabled/pariscall

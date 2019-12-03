@@ -1,0 +1,7 @@
+---
+- name: Themis
+  hosts: all
+  become: yes
+
+  roles:
+    - infra/themis

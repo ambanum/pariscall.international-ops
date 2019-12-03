@@ -1,12 +1,12 @@
 server {
 	listen 80 default_server;
-	server_name {{server_name}};
+	server_name {{ base_url }};
 	# return 302 https://$server_name$request_uri;
 # }
 #
 # server {
 	# listen 443 ssl http2;
-	# server_name {{server_name}};
+	# server_name {{ base_url }};
 	# ssl on;
 	# ssl_certificate /etc/letsencrypt/live/pariscall.international/fullchain.pem;
 	# ssl_certificate_key /etc/letsencrypt/live/pariscall.international/privkey.pem;
