@@ -1,0 +1,9 @@
+all:
+  children:
+    dev:
+      hosts:
+        pariscall.international:
+          ansible_user: debian
+          ansible_ssh_extra_args: -o StrictHostKeyChecking=no
+          base_url: https://pariscall.international
+          enable_https: true
